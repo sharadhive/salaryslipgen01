@@ -7,9 +7,11 @@ import Particles from "react-tsparticles";
 import "bootstrap/dist/css/bootstrap.min.css";
 import SalarySlipGenerator from "./components/Salaryslipgen";
 import logo from "./assets/logo-55 (2).png";
+import Invoice from "./components/Invoice";
 
 const App = () => {
   const [fireMoney, setFireMoney] = useState(false);
+  const [showInvoice, setShowInvoice] = useState(false);
 
   const handleClick = () => {
     setFireMoney(true);
@@ -27,7 +29,7 @@ const App = () => {
         width: "100vw",
         margin: 0,
         padding: 0,
-        overflow: "hidden",
+        overflow: "auto",
         fontFamily: "'Segoe UI', sans-serif",
         position: "relative",
         display: "flex",
@@ -38,7 +40,6 @@ const App = () => {
         cursor: "pointer",
       }}
     >
-      {/* Particles */}
       <Particles
         id="tsparticles"
         init={particlesInit}
@@ -72,7 +73,6 @@ const App = () => {
         }}
       />
 
-      {/* Glowing Background */}
       <motion.div
         animate={{ scale: [1, 1.1, 1], opacity: [0.15, 0.3, 0.15] }}
         transition={{ repeat: Infinity, duration: 6 }}
@@ -88,7 +88,6 @@ const App = () => {
         }}
       />
 
-      {/* Tilt Logo */}
       <Tilt glareEnable glareMaxOpacity={0.2} scale={1.05} tiltMaxAngleX={15} tiltMaxAngleY={15}>
         <motion.img
           src={logo}
@@ -105,7 +104,6 @@ const App = () => {
         />
       </Tilt>
 
-      {/* Shimmer Title */}
       <motion.h1
         initial={{ scale: 0.5, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
@@ -122,7 +120,6 @@ const App = () => {
         💼 Salary Slip Generator
       </motion.h1>
 
-      {/* Animated Emoji Stack */}
       <motion.div
         initial={{ rotateX: 90, opacity: 0 }}
         animate={{ rotateX: 0, opacity: 1 }}
@@ -141,7 +138,6 @@ const App = () => {
         ))}
       </motion.div>
 
-      {/* Form Container */}
       <motion.div
         whileHover={{ scale: 1.01 }}
         initial={{ opacity: 0, scale: 0.9 }}
@@ -157,16 +153,35 @@ const App = () => {
           zIndex: 2,
         }}
       >
-        <SalarySlipGenerator />
+        {showInvoice ? <Invoice /> : <SalarySlipGenerator />}
       </motion.div>
 
-      {/* Button */}
       <motion.div
         initial={{ y: 40, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ delay: 0.8, duration: 0.6 }}
         style={{ marginTop: "40px", textAlign: "center", zIndex: 2 }}
       >
+        <motion.button
+          whileHover={{ scale: 1.1 }}
+          whileTap={{ scale: 0.95 }}
+          onClick={() => setShowInvoice(!showInvoice)}
+          style={{
+            marginRight: "20px",
+            padding: "14px 28px",
+            fontSize: "16px",
+            fontWeight: "bold",
+            color: "#fff",
+            background: "linear-gradient(45deg, #28a745, #218838)",
+            border: "none",
+            borderRadius: "30px",
+            boxShadow: "0 8px 20px rgba(40,167,69,0.3)",
+            cursor: "pointer",
+          }}
+        >
+          🧾 {showInvoice ? "Back to Salary Slip" : "Generate Invoice"}
+        </motion.button>
+
         <motion.a
           href="https://attendance.quastech.in/"
           target="_blank"
@@ -176,21 +191,20 @@ const App = () => {
           transition={{ type: "spring", stiffness: 300 }}
           style={{
             display: "inline-block",
-            padding: "16px 32px",
-            fontSize: "17px",
+            padding: "14px 28px",
+            fontSize: "16px",
             fontWeight: "bold",
             color: "#fff",
             background: "linear-gradient(45deg, #007bff, #00c6ff)",
-            borderRadius: "40px",
+            borderRadius: "30px",
             textDecoration: "none",
-            boxShadow: "0 8px 25px rgba(0, 123, 255, 0.3)",
+            boxShadow: "0 8px 20px rgba(0, 123, 255, 0.3)",
           }}
         >
           🚀 Go to Attendance Admin Panel
         </motion.a>
       </motion.div>
 
-      {/* Confetti on Click */}
       <motion.div
         onMouseMove={handleClick}
         style={{ position: "absolute", top: 0, left: 0, width: "100%", height: "100%", zIndex: 0 }}
@@ -204,7 +218,6 @@ const App = () => {
         />
       )}
 
-      {/* Floating Emoji */}
       <motion.div
         animate={{ y: [0, 20, 0] }}
         transition={{ duration: 3, repeat: Infinity }}
