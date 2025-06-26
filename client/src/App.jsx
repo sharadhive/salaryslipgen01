@@ -88,7 +88,13 @@ const App = () => {
         }}
       />
 
-      <Tilt glareEnable glareMaxOpacity={0.2} scale={1.05} tiltMaxAngleX={15} tiltMaxAngleY={15}>
+      <Tilt
+        glareEnable
+        glareMaxOpacity={0.2}
+        scale={1.05}
+        tiltMaxAngleX={15}
+        tiltMaxAngleY={15}
+      >
         <motion.img
           src={logo}
           alt="Quastech Logo"
@@ -129,9 +135,13 @@ const App = () => {
         {["💵", "💴", "💶", "💷"].map((emoji, i) => (
           <motion.div
             key={i}
-            animate={{ rotateX: [0, 30, 0], y: [0, -10, 0] }}
-            transition={{ repeat: Infinity, duration: 2 + i * 0.3 }}
-            style={{ fontSize: "2.5rem", transformStyle: "preserve-3d" }}
+            animate={{ y: [0, -10, 0], rotateZ: [0, 10, -10, 0] }}
+            transition={{ repeat: Infinity, duration: 2 + i * 0.5 }}
+            style={{
+              fontSize: "2.5rem",
+              filter: "drop-shadow(0 2px 4px rgba(0,0,0,0.2))",
+              transform: `perspective(1000px)`,
+            }}
           >
             {emoji}
           </motion.div>
@@ -140,16 +150,19 @@ const App = () => {
 
       <motion.div
         whileHover={{ scale: 1.01 }}
-        initial={{ opacity: 0, scale: 0.9 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 0.8 }}
+        initial={{ opacity: 0, y: 50 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 1, ease: "easeOut" }}
         style={{
-          background: "#ffffff",
-          borderRadius: "20px",
+          background: "rgba(255, 255, 255, 0.75)",
+          borderRadius: "25px",
           padding: "35px",
           width: "90%",
           maxWidth: "1000px",
-          boxShadow: "0 10px 30px rgba(0,0,0,0.1)",
+          backdropFilter: "blur(10px)",
+          WebkitBackdropFilter: "blur(10px)",
+          border: "1px solid rgba(255, 255, 255, 0.2)",
+          boxShadow: "0 10px 50px rgba(0, 123, 255, 0.15)",
           zIndex: 2,
         }}
       >
@@ -186,7 +199,11 @@ const App = () => {
           href="https://attendance.quastech.in/"
           target="_blank"
           rel="noopener noreferrer"
-          whileHover={{ scale: 1.1, textShadow: "0px 0px 8px rgba(0,198,255,0.9)", boxShadow: "0px 0px 20px rgba(0,198,255,0.6)" }}
+          whileHover={{
+            scale: 1.1,
+            textShadow: "0px 0px 8px rgba(0,198,255,0.9)",
+            boxShadow: "0px 0px 20px rgba(0,198,255,0.6)",
+          }}
           whileTap={{ scale: 0.95 }}
           transition={{ type: "spring", stiffness: 300 }}
           style={{
@@ -207,8 +224,16 @@ const App = () => {
 
       <motion.div
         onMouseMove={handleClick}
-        style={{ position: "absolute", top: 0, left: 0, width: "100%", height: "100%", zIndex: 0 }}
+        style={{
+          position: "absolute",
+          top: 0,
+          left: 0,
+          width: "100%",
+          height: "100%",
+          zIndex: 0,
+        }}
       />
+
       {fireMoney && (
         <Confetti
           numberOfPieces={150}
